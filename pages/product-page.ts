@@ -8,13 +8,15 @@ export class ProductPage extends BasePage {
     xpathAddCartProduct2 = "//button[@data-product-id='2']";
     xpathAddCartProduct3 = "//button[@data-product-id='3']";
 
-    xpathQualityProduct1 = "//td[text()='Product 1']//following-sibling::td[2]";
-    xpathQualityProduct2 = "//td[text()='Product 2']//following-sibling::td[2]";
-    xpathQualityProduct3 = "//td[text()='Product 3']//following-sibling::td[2]";
+    xpathQuantityProduct1 = "//td[text()='Product 1']//following-sibling::td[2]";
+    xpathQuantityProduct2 = "//td[text()='Product 2']//following-sibling::td[2]";
+    xpathQuantityProduct3 = "//td[text()='Product 3']//following-sibling::td[2]";
 
     xpathPriceProduct1 = "//td[text()='Product 1']//following-sibling::td[1]"
     xpathPriceProduct2 = "//td[text()='Product 2']//following-sibling::td[1]"
     xpathPriceProduct3 = "//td[text()='Product 3']//following-sibling::td[1]"
+
+    xpathTotalPrice = "//td[@class='total-price']";
 
     constructor(page: Page) {
         super(page);
@@ -34,6 +36,34 @@ export class ProductPage extends BasePage {
 
     async addProduct3() {
         await this.page.locator(this.xpathAddCartProduct3).click();
+    }
+
+    async getQuantityProduct1() {
+        return this.page.locator(this.xpathQuantityProduct1).textContent();
+    }
+
+    async getQuantityProduct2() {
+        return this.page.locator(this.xpathQuantityProduct2).textContent();
+    }
+
+    async getQuantityProduct3() {
+        return this.page.locator(this.xpathQuantityProduct3).textContent();
+    }
+
+    async getPriceProduct1() {
+        return this.page.locator(this.xpathPriceProduct1).textContent();
+    }
+
+    async getPriceProduct2() {
+        return this.page.locator(this.xpathPriceProduct2).textContent();
+    }
+
+    async getPriceProduct3() {
+        return this.page.locator(this.xpathPriceProduct3).textContent();
+    }
+
+    async getTotalPrice() {
+        return this.page.locator(this.xpathTotalPrice).textContent();
     }
 
 
