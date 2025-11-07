@@ -68,6 +68,10 @@ export class ToDoPage extends BasePage {
         }
     }
 
+    async getLocatorTask(content: string) {
+        return this.page.locator(`//span[text()='${content}']`);
+    }
+
     async checkToDoStillInDOM(nameToDo : string) {
         await this.page.locator(this.getDynamicToDo(nameToDo)).isVisible();
     }
@@ -75,6 +79,8 @@ export class ToDoPage extends BasePage {
     async checkToDoInViewport(todoNumber: number): Promise<boolean> {
         const todoName = `ToDo ${todoNumber}`;  // Match the format used in addMultipleToDo
         const locator = this.page.locator(this.getDynamicToDo(todoName));
+
+
         
         // First check if element exists
         if (!(await locator.isVisible())) {

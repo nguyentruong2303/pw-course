@@ -8,9 +8,9 @@ test("Register Data", async ({ page }) => {
     const registerPage = new RegisterPage(page);
     const url = "https://material.playwrightvn.com/";
     const username = "simon";
-    const email = "simon@gmail.com";
-    const interests = "Technology";
-    const country = "United States";
+    const email = "simon@si";
+    const hobby = "reading";
+    const country = "usa";
     const date = "2025-10-28";
     const filename = "tests/lesson-6-pom/notitle.txt";
     const bio = "I am simon";
@@ -21,26 +21,39 @@ test("Register Data", async ({ page }) => {
     await test.step("Navigate to Register Page and register user", async () => {
         await basePage.navigateTo("https://material.playwrightvn.com/");
         await registerPage.navigateToRegisterPage();
-        await registerPage.registerForm(username, email, interests, country, date, filename, bio, rate, color);
+        //await registerPage.registerForm(username, email, interests, country, date, filename, bio, rate, color);
+
+        await registerPage.fillFormRegister({
+            username: username,
+            email: email,
+            gender: "Male",
+            hobby: hobby,
+            country: country,
+            date: date,
+            fileName: filename,
+            bio: bio,
+            rate: rate,
+            color: color
+        })
     });
 
     await test.step("Verify the data after register", async () => {
-        let expectUsername = await registerPage.getUserName();
-        let expectEmail = await registerPage.getEmail();
-        let expectInfo = await registerPage.getInformation();
+        let actualUsername = await registerPage.getUserName();
+        let actualEmail = await registerPage.getEmail();
+        let actualInfo = await registerPage.getInformation();
 
-        expect(expectUsername).toBe(username);
-        expect(expectEmail).toBe(email);
+        expect(actualUsername).toBe(username);
+        expect(actualEmail).toBe(email);
 
         // Based on the actual output, adjust expectations to match form behavior
-        expect(expectInfo).toContain("usa"); // Country shows as "usa" instead of "United States"
-        expect(expectInfo).toContain(date);
-        expect(expectInfo).toContain(bio);
-        expect(expectInfo).toContain(rate);
-        expect(expectInfo).toContain(color);
+        expect(actualInfo).toContain("usa"); // Country shows as "usa" instead of "United States"
+        expect(actualInfo).toContain(date);
+        expect(actualInfo).toContain(bio);
+        expect(actualInfo).toContain(rate);
+        expect(actualInfo).toContain(color);
 
         // Check for gender and hobbies that appear in the output
-        expect(expectInfo).toContain("Gender: male");
-        expect(expectInfo).toContain("Hobbies: reading, traveling, cooking");
+        expect(actualInfo).toContain("Gender: male");
+        expect(actualInfo).toContain("reading");
     });
 })
